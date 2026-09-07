@@ -1,0 +1,22 @@
+{
+	"name": "ls_sqlserver_onprem_dev",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"description": "\"Linked service for connecting to on-prem SQL Server, FinServe DB, via Self-hosted Integration Runtime.\"",
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"server": "localhost\\SQLEXPRESS",
+			"database": "FinServeDB",
+			"encrypt": "mandatory",
+			"trustServerCertificate": true,
+			"authenticationType": "SQL",
+			"userName": "svc_adf_reader",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI4OWI2YzlmOS0wNTIyLTQ2YjUtYTU0Yy0xYzQxYjRjZDcxMTQiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "SHIR-finserve-onprem-dev",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
