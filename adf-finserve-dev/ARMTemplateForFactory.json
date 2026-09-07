@@ -22,6 +22,10 @@
 		"ls_sqlserver_onprem_dev_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "svc_adf_reader"
+		},
+		"ls_adls_bronze_dev_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://finserveradlsdev01.dfs.core.windows.net/"
 		}
 	},
 	"variables": {
@@ -67,6 +71,19 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/integrationRuntimes/SHIR-finserve-onprem-dev')]"
 			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_adls_bronze_dev')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('ls_adls_bronze_dev_properties_typeProperties_url')]"
+				}
+			},
+			"dependsOn": []
 		}
 	]
 }
