@@ -1,0 +1,27 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "adf-finserve-dev"
+		},
+		"ls_sqlserver_onprem_dev_password": {
+			"value": ""
+		},
+		"ls_sqlserver_onprem_dev_properties_typeProperties_server": {
+			"value": "localhost\\SQLEXPRESS"
+		},
+		"ls_sqlserver_onprem_dev_properties_typeProperties_database": {
+			"value": "FinServeDB"
+		},
+		"ls_sqlserver_onprem_dev_properties_typeProperties_userName": {
+			"value": "svc_adf_reader"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
