@@ -1,0 +1,7 @@
+{
+	"name": "SHIR-finserve-onprem-dev",
+	"properties": {
+		"type": "SelfHosted",
+		"description": "SHIR for connecting to On-Prem SQL Server"
+	}
+}
