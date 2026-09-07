@@ -1,0 +1,21 @@
+{
+	"name": "ds_bronze_customers",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_adls_bronze_dev",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "customers.parquet",
+				"folderPath": "finserve/sqlserver/customers",
+				"fileSystem": "bronze"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}
