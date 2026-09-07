@@ -1,0 +1,10 @@
+{
+	"name": "ls_adls_bronze_dev",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://finserveradlsdev01.dfs.core.windows.net/"
+		}
+	}
+}
