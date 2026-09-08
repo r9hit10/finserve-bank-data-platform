@@ -1,0 +1,21 @@
+{
+	"name": "ds_bronze_accounts",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_adls_bronze_dev",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "accounts.parquet",
+				"folderPath": "finserve/sqlserver/accounts",
+				"fileSystem": "bronze"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}

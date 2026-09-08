@@ -1,0 +1,21 @@
+{
+	"name": "ds_bronze_transactions",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_adls_bronze_dev",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "transactions.parquet",
+				"folderPath": "finserve/sqlserver/transactions",
+				"fileSystem": "bronze"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}
