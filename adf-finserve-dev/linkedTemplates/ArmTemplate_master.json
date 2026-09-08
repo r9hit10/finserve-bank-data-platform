@@ -11,6 +11,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'ls_sqlserver_onprem_dev'"
 		},
+		"ls_adls_bronze_dev_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://finserveradlsdev01.dfs.core.windows.net/"
+		},
 		"ls_sqlserver_onprem_dev_properties_typeProperties_server": {
 			"type": "string",
 			"defaultValue": "localhost\\SQLEXPRESS"
@@ -22,10 +26,6 @@
 		"ls_sqlserver_onprem_dev_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "svc_adf_reader"
-		},
-		"ls_adls_bronze_dev_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://finserveradlsdev01.dfs.core.windows.net/"
 		},
 		"containerUri": {
 			"type": "string",

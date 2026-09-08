@@ -8,6 +8,9 @@
 		"ls_sqlserver_onprem_dev_password": {
 			"value": ""
 		},
+		"ls_adls_bronze_dev_properties_typeProperties_url": {
+			"value": "https://finserveradlsdev01.dfs.core.windows.net/"
+		},
 		"ls_sqlserver_onprem_dev_properties_typeProperties_server": {
 			"value": "localhost\\SQLEXPRESS"
 		},
@@ -16,9 +19,6 @@
 		},
 		"ls_sqlserver_onprem_dev_properties_typeProperties_userName": {
 			"value": "svc_adf_reader"
-		},
-		"ls_adls_bronze_dev_properties_typeProperties_url": {
-			"value": "https://finserveradlsdev01.dfs.core.windows.net/"
 		}
 	}
 }
