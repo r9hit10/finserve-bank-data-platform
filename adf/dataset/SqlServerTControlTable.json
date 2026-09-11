@@ -1,0 +1,37 @@
+{
+	"name": "SqlServerTControlTable",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_sqlserver_onprem_dev",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "TableName",
+				"type": "varchar"
+			},
+			{
+				"name": "WaterMarkValue",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "LastRunStatus",
+				"type": "varchar"
+			},
+			{
+				"name": "LastRunTime",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "ControlTable"
+		}
+	}
+}
