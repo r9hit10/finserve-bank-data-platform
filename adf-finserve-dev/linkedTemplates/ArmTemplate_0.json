@@ -100,7 +100,10 @@
 					"location": {
 						"type": "AzureBlobFSLocation",
 						"fileName": "customers.parquet",
-						"folderPath": "finserve/sqlserver/customers",
+						"folderPath": {
+							"value": "@concat('finserve/sqlserver/customers/',formatDateTime(utcNow(),'yyyy-MM-dd'))",
+							"type": "Expression"
+						},
 						"fileSystem": "bronze"
 					},
 					"compressionCodec": "snappy"
@@ -618,7 +621,14 @@
 					{
 						"name": "copy_customers_to_bronze",
 						"type": "Copy",
-						"dependsOn": [],
+						"dependsOn": [
+							{
+								"activity": "Lookup_for_Customers_From_ControlTable",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
 						"policy": {
 							"timeout": "0.12:00:00",
 							"retry": 0,
@@ -630,6 +640,10 @@
 						"typeProperties": {
 							"source": {
 								"type": "SqlServerSource",
+								"sqlReaderQuery": {
+									"value": "@concat('SELECT * FROM Customers WHERE ModifiedDate >''',activity('Lookup_for_Customers_From_ControlTable').output.firstRow.WaterMarkValue,'''')",
+									"type": "Expression"
+								},
 								"queryTimeout": "02:00:00",
 								"partitionOption": "None"
 							},
@@ -788,6 +802,32 @@
 								"parameters": {}
 							}
 						]
+					},
+					{
+						"name": "Lookup_for_Customers_From_ControlTable",
+						"type": "Lookup",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SqlServerSource",
+								"sqlReaderQuery": "SELECT WaterMarkValue\nFROM dbo.ControlTable\nWHERE TableName  = 'Customers'",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"dataset": {
+								"referenceName": "SqlServerTControlTable",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						}
 					}
 				],
 				"policy": {
@@ -797,7 +837,8 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/ds_sqlserver_customers')]",
-				"[concat(variables('factoryId'), '/datasets/ds_bronze_customers')]"
+				"[concat(variables('factoryId'), '/datasets/ds_bronze_customers')]",
+				"[concat(variables('factoryId'), '/datasets/SqlServerTControlTable')]"
 			]
 		},
 		{
