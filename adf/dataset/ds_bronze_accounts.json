@@ -12,7 +12,7 @@
 				"type": "AzureBlobFSLocation",
 				"fileName": "accounts.parquet",
 				"folderPath": {
-					"value": "@concat('finserve/sqlserver/accounts',formatDateTime(utcNow(),'yyyy-MM-dd'))",
+					"value": "@concat('finserve/sqlserver/accounts/',formatDateTime(utcNow(),'yyyy-MM-dd'))",
 					"type": "Expression"
 				},
 				"fileSystem": "bronze"
