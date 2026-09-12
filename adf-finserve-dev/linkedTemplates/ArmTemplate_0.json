@@ -906,6 +906,83 @@
 								"parameters": {}
 							}
 						}
+					},
+					{
+						"name": "Lookup_To_Get_Max_Value_From_source",
+						"type": "Lookup",
+						"dependsOn": [
+							{
+								"activity": "copy_customers_to_bronze",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SqlServerSource",
+								"sqlReaderQuery": "SELECT MAX(ModifiedDate) AS New_WaterMark\nFROM dbo.Customers;",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"dataset": {
+								"referenceName": "ds_sqlserver_customers",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						}
+					},
+					{
+						"name": "Stored procedure1_To_Update_WaterMArk",
+						"type": "SqlServerStoredProcedure",
+						"dependsOn": [
+							{
+								"activity": "Lookup_To_Get_Max_Value_From_source",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"storedProcedureName": "[[dbo].[usp_update_WaterMarkValue]",
+							"storedProcedureParameters": {
+								"newWaterMarkValue": {
+									"value": {
+										"value": "@activity('Lookup_To_Get_Max_Value_From_source').output.firstRow.New_WaterMark",
+										"type": "Expression"
+									},
+									"type": "DateTime"
+								},
+								"runStatus": {
+									"value": "Success",
+									"type": "String"
+								},
+								"tablename": {
+									"value": "Customers",
+									"type": "String"
+								}
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "ls_sqlserver_onprem_dev",
+							"type": "LinkedServiceReference"
+						}
 					}
 				],
 				"policy": {
@@ -916,7 +993,8 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/ds_sqlserver_customers')]",
 				"[concat(variables('factoryId'), '/datasets/ds_bronze_customers')]",
-				"[concat(variables('factoryId'), '/datasets/SqlServerTControlTable')]"
+				"[concat(variables('factoryId'), '/datasets/SqlServerTControlTable')]",
+				"[concat(variables('factoryId'), '/linkedServices/ls_sqlserver_onprem_dev')]"
 			]
 		},
 		{
